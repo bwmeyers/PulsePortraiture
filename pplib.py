@@ -1011,7 +1011,7 @@ def make_constant_portrait(archive, outfile, profile=None, DM=0.0, dmc=False,
     try:
         arch = pr.Archive_load(archive)
     except AttributeError:
-        arch = psr.Archive.load(archive)
+        arch = pr.Archive.load(archive)
     # If both fail, something is wrong with the PSRCHIVE python install
 
     nsub, npol, nchan, nbin = arch.get_data().shape
@@ -2773,7 +2773,7 @@ def load_data(filename, state=None, dedisperse=False, dededisperse=False,
     try:
         arch = pr.Archive_load(filename)
     except AttributeError:
-        arch = psr.Archive.load(filename)
+        arch = pr.Archive.load(filename)
     # If both fail, something is wrong with the PSRCHIVE python install
 
     source = arch.get_source()
