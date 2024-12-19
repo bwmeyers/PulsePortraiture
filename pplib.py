@@ -1008,7 +1008,12 @@ def make_constant_portrait(archive, outfile, profile=None, DM=0.0, dmc=False,
         as weights.
     quiet=True suppresses output.
     """
-    arch = pr.Archive_load(archive)
+    try:
+        arch = pr.Archive_load(archive)
+    except AttributeError:
+        arch = psr.Archive.load(archive)
+    # If both fail, something is wrong with the PSRCHIVE python install
+
     nsub, npol, nchan, nbin = arch.get_data().shape
     if profile is None:
         arch.tscrunch()
@@ -2765,7 +2770,12 @@ def load_data(filename, state=None, dedisperse=False, dededisperse=False,
     quiet=True suppresses output.
     """
     # Load archive
-    arch = pr.Archive_load(filename)
+    try:
+        arch = pr.Archive_load(filename)
+    except AttributeError:
+        arch = psr.Archive.load(filename)
+    # If both fail, something is wrong with the PSRCHIVE python install
+
     source = arch.get_source()
     if not quiet:
         print("\nReading data from %s on source %s..." % (filename, source))
