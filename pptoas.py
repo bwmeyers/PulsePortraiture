@@ -1208,11 +1208,17 @@ class GetTOAs(object):
         else:
             datafiles = [datafile]
         if self.is_FITS_model:
-            model_arch = pr.Archive_load(self.modelfile)
+            try:
+                model_arch = pr.Archive_load(self.modelfile)
+            except AttributeError:
+                model_arch = pr.Archive.load(self.modelfile)
             model_arch.pscrunch()
             arrtim.set_standard(model_arch)
         for iarch, datafile in enumerate(datafiles):
-            arch = pr.Archive_load(datafile)
+            try:
+                arch = pr.Archive_load(datafile)
+            except AttributeError:
+                arch = pr.Archive.load(datafile)
             arch.pscrunch()
             if tscrunch: arch.tscrunch()
             arrtim.set_observation(arch)
